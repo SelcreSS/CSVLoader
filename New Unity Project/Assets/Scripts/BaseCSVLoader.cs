@@ -46,7 +46,15 @@ public class BaseCSVLoader<T> : GenelicSingleton<T> where T : GenelicSingletonIn
             {
                 data.Add(addline[index]);
             }
-            csvDatas[addline[0]] = data.ToArray();
+            // キーもチェック
+            if (!csvDatas.ContainsKey(addline[0]))
+            {
+                csvDatas[addline[0]] = data.ToArray();
+            }
+            else
+            {
+                Debug.LogWarning("CSV data Tag" + addline[0] + " is Already Included");
+            }
         }
     }
 }
