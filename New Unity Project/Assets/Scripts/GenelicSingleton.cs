@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 [DefaultExecutionOrder(-20)]
-public class GenelicSingleton<T> : Initializer where T : Initializer
+public class GenelicSingleton<T> : GenelicSingletonInitializer where T : GenelicSingletonInitializer
 {
 	private static T _Instance;
 
@@ -11,7 +10,6 @@ public class GenelicSingleton<T> : Initializer where T : Initializer
 	{
 		get
 		{
-			//インスタンスがまだ作られていない
 			if (_Instance == null)
 			{
 				_Instance = (T)FindObjectOfType(typeof(T));
@@ -37,7 +35,7 @@ public class GenelicSingleton<T> : Initializer where T : Initializer
 	}
 }
 
-public class Initializer : MonoBehaviour
+public class GenelicSingletonInitializer : MonoBehaviour
 {
 	private bool _isInitialized = false;
 

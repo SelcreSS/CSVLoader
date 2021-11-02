@@ -5,12 +5,12 @@ using System.IO;
 /// <summary>
 /// UTF-8 CSVLoader
 /// </summary>
-public class BaseCSVLoader<T> : GenelicSingleton<T> where T : Initializer
+public class BaseCSVLoader<T> : GenelicSingleton<T> where T : GenelicSingletonInitializer
 {
     protected string Path;
 
     private TextAsset csvFile;
-    protected static Dictionary<string,string[]> csvDatas2 = new Dictionary<string, string[]>();
+    protected static Dictionary<string,string[]> csvDatas = new Dictionary<string, string[]>();
 
     protected override void Start()
     {
@@ -25,8 +25,7 @@ public class BaseCSVLoader<T> : GenelicSingleton<T> where T : Initializer
             // 分割された1行のデータ
             var addline = line.Split(',');
 
-            // @を弾くタグとしてCSV上確認。データにはいらないので一番上は飛ばす。
-            // タグが何個あるか
+            // @をデータに含まない「弾くタグ」として設定。一番上の列は含まない。
             if (!isTagCheckEnd)
             {
                 foreach (var tag in addline)
@@ -47,7 +46,7 @@ public class BaseCSVLoader<T> : GenelicSingleton<T> where T : Initializer
             {
                 data.Add(addline[index]);
             }
-            csvDatas2[addline[0]] = data.ToArray();
+            csvDatas[addline[0]] = data.ToArray();
         }
     }
 }
